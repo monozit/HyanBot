@@ -9,6 +9,7 @@ public class PropertiesLoader {
 		String propertiesPass = filePath;
 		InputStream istream = new FileInputStream(propertiesPass);
         properties.load(istream);
+        istream.close();
         
         return properties;
 	}
