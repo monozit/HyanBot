@@ -51,6 +51,7 @@ public class NormalTweet {
 			sentence = sentence.replace("[改行]", "\n");
 		}while(myLatestTweet.equals(sentence));
 
+		
 		// post to twitter
 		twitter.updateStatus(
 				new StatusUpdate(sentence).media(imageFiles[random]));
