@@ -9,6 +9,7 @@ import java.util.Random;
 
 import twitter4j.ResponseList;
 import twitter4j.Status;
+import twitter4j.StatusUpdate;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
@@ -51,8 +52,8 @@ public class NormalTweet {
 		}while(myLatestTweet.equals(sentence));
 
 		// post to twitter
-//		twitter.updateStatus(
-//				new StatusUpdate(sentence).media(imageFiles[random]));
-//		System.out.println(sentence);
+		twitter.updateStatus(
+				new StatusUpdate(sentence).media(imageFiles[random]));
+		System.out.println("Tweet:" + sentence);
 	}
 }
