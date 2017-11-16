@@ -18,8 +18,6 @@ public class NormalTweet {
 
 	public void post(Twitter twitter) throws TwitterException, FileNotFoundException, IOException{
 		
-		System.out.println("Normal");
-		
 		ArrayList<String> sentences = new ArrayList<>();
 		File file = new File(fileName);
 		BufferedReader br = new BufferedReader(

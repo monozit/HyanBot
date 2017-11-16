@@ -1,6 +1,7 @@
 ﻿import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.time.LocalDateTime;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -30,16 +31,17 @@ public class HyanBot {
 			e.printStackTrace();
 		}
 
-		Twitter twitter = new TwitterFactory().getInstance();
+		
 		// normal tweet(default:2 hours interval)
 		Timer timer_normal = new Timer();
 		timer_normal.scheduleAtFixedRate(new TimerTask(){
 			@Override
 			public void run() {
 				try {
-//					LocalDateTime now = LocalDateTime.now();
-//					int hour = now.getHour();
-//					if(hour < 7) return;	// do not tweet from 0 to 6
+					LocalDateTime now = LocalDateTime.now();
+					int hour = now.getHour();
+					if(hour < 7) return;	// do not tweet from 0 to 6
+					Twitter twitter = new TwitterFactory().getInstance();
 					(new NormalTweet()).post(twitter);
 				} catch (TwitterException e) {
 					System.out.println("maybe twitter is down.");
@@ -62,6 +64,7 @@ public class HyanBot {
 			@Override
 			public void run() {
 				try {
+					Twitter twitter = new TwitterFactory().getInstance();
 					(new ReplyTweet()).reply(twitter);
 				} catch (TwitterException e) {
 					System.out.println("maybe twitter is down.");
