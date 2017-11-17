@@ -60,7 +60,7 @@ public class Recognizer {
         		+ "customvision/v1.0/Prediction/" + projectId + "/inline/image";
         URIBuilder builder = new URIBuilder(httpUrl);
 
-//        builder.setParameter("iterationId", "3ec545c4-80fd-410a-8597-9bc4e60d6526");
+//        builder.setParameter("iterationId", "{string}");
 //        builder.setParameter("application", "{string}");
 
         // Request header

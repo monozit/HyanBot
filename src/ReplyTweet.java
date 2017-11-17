@@ -56,6 +56,25 @@ public class ReplyTweet {
 				}else if((title_idx = checkTitleAt(tweet)) != -1){
 					replyAboutTitle(twitter, mention, "title", title_idx);
 				}
+//				String storyNum;
+//				if(checkImage(mention)){
+//					replyRecogResult(twitter, mention);
+//				}else if(checkSyntax("data/text/syntax_keshizumi.txt", tweet) != null){
+//					replyAbout(twitter, mention, "keshizumi");
+//				}else if(checkSyntax("data/text/syntax_op.txt", tweet) != null){
+//					replyAbout(twitter, mention, "op");
+//				}else if(checkSyntax("data/text/syntax_ed.txt", tweet) != null){
+//					replyAbout(twitter, mention, "ed");
+//				}else if(checkSyntax("data/text/syntax_kawaii.txt", tweet) != null){
+//					replyAbout(twitter, mention, "kawaii");
+//				}else if(checkSyntax("data/text/syntax_gif.txt", tweet) != null){
+//					replyAbout(twitter, mention, "gif");
+//				}else if(checkSyntax("data/text/syntax_title.txt", tweet) != null){
+//					replyAbout(twitter, mention, "title");
+//				}else if((storyNum = checkSyntax("data/text/syntax_title.txt", tweet)) != null){
+//					int num = Integer.parseInt(storyNum);
+//					replyAboutTitle(twitter, mention, "title", num);
+//				}
 			}
 		}
 	}
@@ -174,6 +193,25 @@ public class ReplyTweet {
 		boolean match = m.find();
 		return match;
 	}
+	
+	private String checkSyntax(String filePath, String target) throws IOException{
+		ArrayList<String> words = new ArrayList<>();
+		File file = new File(filePath);
+		BufferedReader br = new BufferedReader(
+				new InputStreamReader(new FileInputStream(file), "Shift-JIS"));
+		
+		// get sentences
+		String line;
+		while((line = br.readLine()) != null){
+			words.add(line);
+		}
+		br.close();
+		
+		for(String word : words){
+			if(check(word, target)) return word;
+		}
+		return null;
+	}
 
 	private boolean checKeshizumi(String target){
 		String[] strs = {
@@ -257,9 +295,10 @@ public class ReplyTweet {
 		// only first image recognize
 		String url = medias[0].getMediaURL();
 		
-		// extension ".jpg(.JPG)" and ".png(.PNG)" exist
+		// extension ".jpg(.JPG)" and ".png(.PNG)" and ".gif" exist
 		if((url.toLowerCase().indexOf(".jpg")) != -1) return true;
 		if((url.toLowerCase().indexOf(".png")) != -1) return true;
+		if((url.toLowerCase().indexOf(".gif")) != -1) return true;
 		
 		return false;
 	}
