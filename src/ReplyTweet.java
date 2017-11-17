@@ -159,7 +159,7 @@ public class ReplyTweet {
 		
 		// recognize image
 		File recogImage = new File("data/image/recog/" + imageName);
-		PredictInfo result = (new Recognizer()).execute(recogImage, "data/setting/customvision_claire.properties");
+		PredictInfo result = (new Recognizer()).execute(recogImage, "data/setting/customvision_claire2.properties");
 		recogImage.delete();
 		
 		if(result.getTag().equals("error")){
@@ -171,9 +171,11 @@ public class ReplyTweet {
 		if((result.getTag().equals("Claire"))
 				&& (result.getProbability() > 0.0)){
 			double percent = (double)(result.getProbability() * 100);
-			rep_message = "この画像は【" + percent + "%】の確率で私よ！";
+			if(percent > 80) 
+				rep_message = "【" + percent + "%】の確率で私よ！";
+			else
+				rep_message = "【" + percent + "%】の確率で私かもしれないわ";
 		}else{
-			
 			rep_message = "この画像は私じゃないわね..";
 		}
 		
