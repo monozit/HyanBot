@@ -1,4 +1,4 @@
-﻿import java.io.BufferedReader;
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -56,25 +56,6 @@ public class ReplyTweet {
 				}else if((title_idx = checkTitleAt(tweet)) != -1){
 					replyAboutTitle(twitter, mention, "title", title_idx);
 				}
-//				String storyNum;
-//				if(checkImage(mention)){
-//					replyRecogResult(twitter, mention);
-//				}else if(checkSyntax("data/text/syntax_keshizumi.txt", tweet) != null){
-//					replyAbout(twitter, mention, "keshizumi");
-//				}else if(checkSyntax("data/text/syntax_op.txt", tweet) != null){
-//					replyAbout(twitter, mention, "op");
-//				}else if(checkSyntax("data/text/syntax_ed.txt", tweet) != null){
-//					replyAbout(twitter, mention, "ed");
-//				}else if(checkSyntax("data/text/syntax_kawaii.txt", tweet) != null){
-//					replyAbout(twitter, mention, "kawaii");
-//				}else if(checkSyntax("data/text/syntax_gif.txt", tweet) != null){
-//					replyAbout(twitter, mention, "gif");
-//				}else if(checkSyntax("data/text/syntax_title.txt", tweet) != null){
-//					replyAbout(twitter, mention, "title");
-//				}else if((storyNum = checkSyntax("data/text/syntax_title.txt", tweet)) != null){
-//					int num = Integer.parseInt(storyNum);
-//					replyAboutTitle(twitter, mention, "title", num);
-//				}
 			}
 		}
 	}
@@ -159,7 +140,7 @@ public class ReplyTweet {
 		
 		// recognize image
 		File recogImage = new File("data/image/recog/" + imageName);
-		PredictInfo result = (new Recognizer()).execute(recogImage, "data/setting/customvision_claire2.properties");
+		PredictInfo result = (new Recognizer()).execute(recogImage, "data/setting/customvision_claire.properties");
 		recogImage.delete();
 		
 		if(result.getTag().equals("error")){
@@ -171,11 +152,9 @@ public class ReplyTweet {
 		if((result.getTag().equals("Claire"))
 				&& (result.getProbability() > 0.0)){
 			double percent = (double)(result.getProbability() * 100);
-			if(percent > 80) 
-				rep_message = "【" + percent + "%】の確率で私よ！";
-			else
-				rep_message = "【" + percent + "%】の確率で私かもしれないわ";
+			rep_message = "この画像は【" + percent + "%】の確率で私よ！";
 		}else{
+			
 			rep_message = "この画像は私じゃないわね..";
 		}
 		
@@ -194,25 +173,6 @@ public class ReplyTweet {
 		Matcher m = p.matcher(target);
 		boolean match = m.find();
 		return match;
-	}
-	
-	private String checkSyntax(String filePath, String target) throws IOException{
-		ArrayList<String> words = new ArrayList<>();
-		File file = new File(filePath);
-		BufferedReader br = new BufferedReader(
-				new InputStreamReader(new FileInputStream(file), "Shift-JIS"));
-		
-		// get sentences
-		String line;
-		while((line = br.readLine()) != null){
-			words.add(line);
-		}
-		br.close();
-		
-		for(String word : words){
-			if(check(word, target)) return word;
-		}
-		return null;
 	}
 
 	private boolean checKeshizumi(String target){
@@ -297,10 +257,9 @@ public class ReplyTweet {
 		// only first image recognize
 		String url = medias[0].getMediaURL();
 		
-		// extension ".jpg(.JPG)" and ".png(.PNG)" and ".gif" exist
+		// extension ".jpg(.JPG)" and ".png(.PNG)" exist
 		if((url.toLowerCase().indexOf(".jpg")) != -1) return true;
 		if((url.toLowerCase().indexOf(".png")) != -1) return true;
-		if((url.toLowerCase().indexOf(".gif")) != -1) return true;
 		
 		return false;
 	}

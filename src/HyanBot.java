@@ -1,5 +1,7 @@
-﻿import java.io.FileNotFoundException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.Properties;
@@ -31,7 +33,7 @@ public class HyanBot {
 			e.printStackTrace();
 		}
 
-		
+		Twitter twitter = new TwitterFactory().getInstance();
 		// normal tweet(default:2 hours interval)
 		Timer timer_normal = new Timer();
 		timer_normal.scheduleAtFixedRate(new TimerTask(){
@@ -41,7 +43,6 @@ public class HyanBot {
 					LocalDateTime now = LocalDateTime.now();
 					int hour = now.getHour();
 					if(hour < 7) return;	// do not tweet from 0 to 6
-					Twitter twitter = new TwitterFactory().getInstance();
 					(new NormalTweet()).post(twitter);
 				} catch (TwitterException e) {
 					System.out.println("maybe twitter is down.");
@@ -64,7 +65,6 @@ public class HyanBot {
 			@Override
 			public void run() {
 				try {
-					Twitter twitter = new TwitterFactory().getInstance();
 					(new ReplyTweet()).reply(twitter);
 				} catch (TwitterException e) {
 					System.out.println("maybe twitter is down.");
@@ -88,13 +88,16 @@ public class HyanBot {
 
 	public static void setting() throws IOException{
 		// Load properties
-		Properties properties = PropertiesLoader.load("data/setting/setting.properties");
-		
-		// set interval
-		String normalInterval = properties.getProperty("normalInterval", String.valueOf(DEFAULT_NORMAL_INTERVAL));
-		NORMAL_INTERVAL = Integer.parseInt(normalInterval);
-		String replyInterval = properties.getProperty("replyInterval", String.valueOf(DEFAULT_REPLY_INTERVAL));
-		REPLY_INTERVAL = Integer.parseInt(replyInterval);
+		Properties properties = new Properties();
+		String propertiesPass = "data/setting/setting.properties";
+		InputStream istream = new FileInputStream(propertiesPass);
+        properties.load(istream);
+        
+        // set interval
+        String normalInterval = properties.getProperty("normalInterval", String.valueOf(DEFAULT_NORMAL_INTERVAL));
+        NORMAL_INTERVAL = Integer.parseInt(normalInterval);
+        String replyInterval = properties.getProperty("replyInterval", String.valueOf(DEFAULT_REPLY_INTERVAL));
+        REPLY_INTERVAL = Integer.parseInt(replyInterval);
 	}
 
 }
