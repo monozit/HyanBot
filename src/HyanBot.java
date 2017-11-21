@@ -1,7 +1,5 @@
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.time.LocalDateTime;
 import java.util.Properties;
@@ -88,10 +86,7 @@ public class HyanBot {
 
 	public static void setting() throws IOException{
 		// Load properties
-		Properties properties = new Properties();
-		String propertiesPass = "data/setting/setting.properties";
-		InputStream istream = new FileInputStream(propertiesPass);
-        properties.load(istream);
+		Properties properties = PropertiesLoader.load("data/setting/setting.properties");
         
         // set interval
         String normalInterval = properties.getProperty("normalInterval", String.valueOf(DEFAULT_NORMAL_INTERVAL));

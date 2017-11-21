@@ -133,14 +133,14 @@ public class ReplyTweet {
 		String imageName = (Paths.get(url.getPath())).getFileName().toString();
 		System.out.println(imageName);
 		InputStream in = url.openStream();
-		FileOutputStream out = new FileOutputStream("data/image/recog/" + imageName);
+		FileOutputStream out = new FileOutputStream("data/image/" + imageName);
 		IOWriter.outWriter(in, out);
 		in.close();
 		out.close();
 		
 		// recognize image
-		File recogImage = new File("data/image/recog/" + imageName);
-		PredictInfo result = (new Recognizer()).execute(recogImage, "data/setting/customvision_claire.properties");
+		File recogImage = new File("data/image/" + imageName);
+		PredictInfo result = (new Recognizer()).execute(recogImage, "data/setting/customvision_claire2.properties");
 		recogImage.delete();
 		
 		if(result.getTag().equals("error")){
@@ -260,6 +260,7 @@ public class ReplyTweet {
 		// extension ".jpg(.JPG)" and ".png(.PNG)" exist
 		if((url.toLowerCase().indexOf(".jpg")) != -1) return true;
 		if((url.toLowerCase().indexOf(".png")) != -1) return true;
+		if((url.toLowerCase().indexOf(".gif")) != -1) return true;
 		
 		return false;
 	}
