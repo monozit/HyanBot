@@ -87,12 +87,12 @@ public class HyanBot {
 	public static void setting() throws IOException{
 		// Load properties
 		Properties properties = PropertiesLoader.load("data/setting/setting.properties");
-        
-        // set interval
-        String normalInterval = properties.getProperty("normalInterval", String.valueOf(DEFAULT_NORMAL_INTERVAL));
-        NORMAL_INTERVAL = Integer.parseInt(normalInterval);
-        String replyInterval = properties.getProperty("replyInterval", String.valueOf(DEFAULT_REPLY_INTERVAL));
-        REPLY_INTERVAL = Integer.parseInt(replyInterval);
+		
+		// set interval
+		String normalInterval = properties.getProperty("normalInterval", String.valueOf(DEFAULT_NORMAL_INTERVAL));
+		NORMAL_INTERVAL = Integer.parseInt(normalInterval);
+		String replyInterval = properties.getProperty("replyInterval", String.valueOf(DEFAULT_REPLY_INTERVAL));
+		REPLY_INTERVAL = Integer.parseInt(replyInterval);
 	}
 
 }

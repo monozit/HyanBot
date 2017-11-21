@@ -15,10 +15,6 @@ public class FileSort {
 			}
 		});
 		
-//		for(int i = 0; i < files.length; i++){
-//			System.out.println(files[i].getName());
-//		}
-		
 		return files;
 	}
 }

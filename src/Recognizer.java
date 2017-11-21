@@ -25,26 +25,26 @@ public class Recognizer {
 		
 		// JSON file to Java object
 		ObjectMapper om = new ObjectMapper();
-        RecogEntity recogEntity = om.readValue(recogInfo, RecogEntity.class);
-        PredictInfo[] infos = recogEntity.getPredictions();
-        
-        // get PredictInfo instance that has maximum probability
-        double max = 0.0;
-        int cnt = 0;
-        int infoIdx = -1;
-        for(PredictInfo info : infos){
-        	double prob = info.getProbability();
-        	if(max < prob){
-        		max = prob;
-        		infoIdx = cnt;
-        	}
-        	cnt++;
-        }
-        
-        if(infoIdx == -1) return (new PredictInfo("", "rejected", 0.0));
-        
-        PredictInfo result = infos[infoIdx];
-        return result;
+		RecogEntity recogEntity = om.readValue(recogInfo, RecogEntity.class);
+		PredictInfo[] infos = recogEntity.getPredictions();
+		
+		// get PredictInfo instance that has maximum probability
+		double max = 0.0;
+		int cnt = 0;
+		int infoIdx = -1;
+		for(PredictInfo info : infos){
+			double prob = info.getProbability();
+			if(max < prob){
+				max = prob;
+				infoIdx = cnt;
+			}
+			cnt++;
+		}
+		
+		if(infoIdx == -1) return (new PredictInfo("", "rejected", 0.0));
+		
+		PredictInfo result = infos[infoIdx];
+		return result;
 	}
 	
 	
@@ -57,31 +57,31 @@ public class Recognizer {
 		HttpClient httpclient = HttpClients.createDefault();
 		String projectId = properties.getProperty("projectId");
 		String httpUrl = "https://southcentralus.api.cognitive.microsoft.com/"
-        		+ "customvision/v1.0/Prediction/" + projectId + "/inline/image";
-        URIBuilder builder = new URIBuilder(httpUrl);
+						+ "customvision/v1.0/Prediction/" + projectId + "/inline/image";
+		URIBuilder builder = new URIBuilder(httpUrl);
 
 //        builder.setParameter("iterationId", "{string}");
 //        builder.setParameter("application", "{string}");
 
-        // Request header
-        URI uri = builder.build();
-        HttpPost request = new HttpPost(uri);
-        String predictionKey = properties.getProperty("predictionKey");
-        request.setHeader("Content-Type", "application/octet-stream");
-        request.setHeader("Prediction-key", predictionKey);
+		// Request header
+		URI uri = builder.build();
+		HttpPost request = new HttpPost(uri);
+		String predictionKey = properties.getProperty("predictionKey");
+		request.setHeader("Content-Type", "application/octet-stream");
+		request.setHeader("Prediction-key", predictionKey);
 
-        // Request body
-        FileEntity reqEntity = new FileEntity(recogImage);
-        request.setEntity(reqEntity);
+		// Request body
+		FileEntity reqEntity = new FileEntity(recogImage);
+		request.setEntity(reqEntity);
 
-        // Get response
-        HttpResponse response = httpclient.execute(request);
-        HttpEntity entity = response.getEntity();
+		// Get response
+		HttpResponse response = httpclient.execute(request);
+		HttpEntity entity = response.getEntity();
         
-        if (entity != null){
-        	String entityString = EntityUtils.toString(entity);
-        	return entityString;
-        }
-        return "error";
+		if (entity != null){
+			String entityString = EntityUtils.toString(entity);
+			return entityString;
+		}
+		return "error";
 	}
 }
