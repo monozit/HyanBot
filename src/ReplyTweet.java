@@ -143,13 +143,13 @@ public class ReplyTweet {
 		PredictInfo result = (new Recognizer()).execute(recogImage, "data/setting/customvision_claire2.properties");
 		recogImage.delete();
 		
-		if(result.getTag().equals("error")){
+		if(result.getTagName().equals("error")){
 			System.out.println("entity is null");
 			return;
 		}
 		
 		String rep_message = "";
-		if((result.getTag().equals("Claire"))
+		if((result.getTagName().equals("Claire"))
 				&& (result.getProbability() > 0.0)){
 			double percent = (double)(result.getProbability() * 100);
 			rep_message = "この画像は【" + percent + "%】の確率で私よ！";
