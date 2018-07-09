@@ -67,7 +67,7 @@ public class Recognizer {
 		URI uri = builder.build();
 		HttpPost request = new HttpPost(uri);
 		String predictionKey = properties.getProperty("predictionKey");
-		request.setHeader("Content-Type", "application/octet-stream");
+		request.setHeader("Content-Type", "multipart/form-data");
 		request.setHeader("Prediction-key", predictionKey);
 
 		// Request body
