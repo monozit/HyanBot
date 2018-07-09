@@ -1,19 +1,21 @@
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class PredictInfo {
 	
-	@JsonProperty("TagId")
+	@JsonProperty("tagId")
 	private String tagId;
 	
-	@JsonProperty("Tag")
-	private String tag;
+	@JsonProperty("tagName")
+	private String tagName;
 	
-	@JsonProperty("Probability")
+	@JsonProperty("probability")
 	private double probability;
 	
-	public PredictInfo(String tagId, String tag, double probability){
+	public PredictInfo(String tagId, String tagName, double probability){
 		this.tagId = tagId;
-		this.tag = tag;
+		this.tagName = tagName;
 		this.probability = probability;
 	}
 	
@@ -29,12 +31,12 @@ public class PredictInfo {
 		this.tagId = tagId;
 	}
 
-	public String getTag() {
-		return tag;
+	public String getTagName() {
+		return tagName;
 	}
 
-	public void setTag(String tag) {
-		this.tag = tag;
+	public void setTagName(String tagName) {
+		this.tagName = tagName;
 	}
 
 	public double getProbability() {
