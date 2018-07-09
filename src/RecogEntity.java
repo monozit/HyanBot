@@ -2,33 +2,33 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class RecogEntity {
 	
-	@JsonProperty("Id")
+	@JsonProperty("id")
 	private String id;
 	
-	@JsonProperty("Project")
+	@JsonProperty("project")
 	private String project;
 	
-	@JsonProperty("Iteration")
+	@JsonProperty("iteration")
 	private String iteration;
 	
-	@JsonProperty("Created")
+	@JsonProperty("created")
 	private String created;
 	
-	@JsonProperty("Predictions")
+	@JsonProperty("predictions")
 	private PredictInfo[] predictions;
 	
 
 	@Override
 	public String toString(){
 		String ret = "";
-		ret += "Id: " + id + "\n"
-			 + "Project: " + project + "\n"
-			 + "Iteration: " + iteration + "\n"
-			 + "Created: " + created + "\n";
+		ret += "id: " + id + "\n"
+			 + "project: " + project + "\n"
+			 + "iteration: " + iteration + "\n"
+			 + "created: " + created + "\n";
 		for(PredictInfo info : predictions){
-			ret += "[TagId: " + info.getTagId() + "\n"
-				 + " Tag: " + info.getTag() + "\n"
-				 + " Probability: " + info.getProbability() + "]\n";
+			ret += "[tagId: " + info.getTagId() + "\n"
+				 + " tagName: " + info.getTagName() + "\n"
+				 + " probability: " + info.getProbability() + "]\n";
 		}
 		return ret;
 	}
