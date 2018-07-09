@@ -57,7 +57,7 @@ public class Recognizer {
 		HttpClient httpclient = HttpClients.createDefault();
 		String projectId = properties.getProperty("projectId");
 		String httpUrl = "https://southcentralus.api.cognitive.microsoft.com/"
-						+ "customvision/v1.0/Prediction/" + projectId + "/inline/image";
+						+ "customvision/v2.0/Prediction/" + projectId + "/image";
 		URIBuilder builder = new URIBuilder(httpUrl);
 
 //        builder.setParameter("iterationId", "{string}");
